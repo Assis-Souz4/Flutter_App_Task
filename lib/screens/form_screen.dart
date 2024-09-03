@@ -15,26 +15,27 @@ class _FormScreenState extends State<FormScreen> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'New Task',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'New Task',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+          leading: const SizedBox(),
+          backgroundColor: Colors.cyan,
         ),
-        leading: const SizedBox(),
-        backgroundColor: Colors.cyan,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.cyan[50],
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(width: 3)),
-            width: 400,
-            height: 700,
-            child: Form(
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.cyan[50],
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(width: 3)),
+              width: 400,
+              height: 700,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,6 +45,12 @@ class _FormScreenState extends State<FormScreen> {
                     child: TextFormField(
                       onChanged: (value) {
                         setState(() {});
+                      },
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Add task name';
+                        }
+                        return null;
                       },
                       controller: nameController,
                       textAlign: TextAlign.center,
@@ -62,6 +69,14 @@ class _FormScreenState extends State<FormScreen> {
                       onChanged: (value) {
                         setState(() {});
                       },
+                      validator: (value) {
+                        if (value!.isEmpty ||
+                            int.parse(value) > 5 ||
+                            int.parse(value) < 1) {
+                          return 'Enter a value from 1 to 5';
+                        }
+                        return null;
+                      },
                       controller: difficultyController,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
@@ -77,6 +92,12 @@ class _FormScreenState extends State<FormScreen> {
                     child: TextFormField(
                       onChanged: (value) {
                         setState(() {});
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter an image url';
+                        }
+                        return null;
                       },
                       controller: imageController,
                       textAlign: TextAlign.center,
@@ -112,9 +133,11 @@ class _FormScreenState extends State<FormScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      print(nameController.text);
-                      print(int.parse(difficultyController.text));
-                      print(imageController.text);
+                      if (_formKey.currentState!.validate()) {
+                        print(nameController.text);
+                        print(difficultyController.text);
+                        print(imageController.text);
+                      }
                     },
                     child: const Text('Add Task'),
                   ),
