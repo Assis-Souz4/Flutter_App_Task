@@ -132,6 +132,10 @@ class _FormScreenState extends State<FormScreen> {
                     ),
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.cyan,
+                        shape: ContinuousRectangleBorder(
+                            borderRadius: BorderRadius.circular(6))),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         print(nameController.text);
@@ -139,7 +143,11 @@ class _FormScreenState extends State<FormScreen> {
                         print(imageController.text);
                       }
                     },
-                    child: const Text('Add Task'),
+                    child: const Text(
+                      'Add Task',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
