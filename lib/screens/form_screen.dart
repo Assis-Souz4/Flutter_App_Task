@@ -26,98 +26,100 @@ class _FormScreenState extends State<FormScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.cyan[50],
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(width: 3)),
-          width: 400,
-          height: 700,
-          child: Form(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                    controller: nameController,
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      hintText: 'Name',
-                      border: OutlineInputBorder(),
-                      fillColor: Colors.white70,
-                      filled: true,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                    controller: difficultyController,
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        fillColor: Colors.white70,
-                        filled: true,
-                        border: OutlineInputBorder(),
-                        hintText: 'Difficulty'),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                    controller: imageController,
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.url,
-                    decoration: const InputDecoration(
-                        fillColor: Colors.white70,
-                        filled: true,
-                        border: OutlineInputBorder(),
-                        hintText: 'Image'),
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  height: 120,
-                  decoration: BoxDecoration(
-                      color: Colors.white70,
-                      border: Border.all(width: 2, color: Colors.cyan),
-                      borderRadius: BorderRadius.circular(6)),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Image.network(
-                      imageController.text,
-                      errorBuilder: (BuildContext context, Object exception,
-                          StackTrace? stackTrace) {
-                        return Image.asset(
-                          'assets/image/no_photo.avif',
-                          fit: BoxFit.cover,
-                        );
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.cyan[50],
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(width: 3)),
+            width: 400,
+            height: 700,
+            child: Form(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        setState(() {});
                       },
-                      fit: BoxFit.cover,
+                      controller: nameController,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        hintText: 'Name',
+                        border: OutlineInputBorder(),
+                        fillColor: Colors.white70,
+                        filled: true,
+                      ),
                     ),
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    print(nameController.text);
-                    print(int.parse(difficultyController.text));
-                    print(imageController.text);
-                  },
-                  child: const Text('Add Task'),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                      controller: difficultyController,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                          fillColor: Colors.white70,
+                          filled: true,
+                          border: OutlineInputBorder(),
+                          hintText: 'Difficulty'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                      controller: imageController,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.url,
+                      decoration: const InputDecoration(
+                          fillColor: Colors.white70,
+                          filled: true,
+                          border: OutlineInputBorder(),
+                          hintText: 'Image'),
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    height: 120,
+                    decoration: BoxDecoration(
+                        color: Colors.white70,
+                        border: Border.all(width: 2, color: Colors.cyan),
+                        borderRadius: BorderRadius.circular(6)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
+                        imageController.text,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Image.asset(
+                            'assets/image/no_photo.avif',
+                            fit: BoxFit.cover,
+                          );
+                        },
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      print(nameController.text);
+                      print(int.parse(difficultyController.text));
+                      print(imageController.text);
+                    },
+                    child: const Text('Add Task'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
