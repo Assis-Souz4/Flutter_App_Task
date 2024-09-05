@@ -35,7 +35,7 @@ class _FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(width: 3)),
               width: 400,
-              height: 700,
+              height: 680,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,6 +141,11 @@ class _FormScreenState extends State<FormScreen> {
                         print(nameController.text);
                         print(difficultyController.text);
                         print(imageController.text);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Task sent successfully...'),
+                          ),
+                        );
                       }
                     },
                     child: const Text(
