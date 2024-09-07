@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_task_2024/components/my_task.dart';
+import 'package:flutter_app_task_2024/screens/form_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -9,8 +10,6 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  bool islock = true;
-  bool hideScreen = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,47 +25,41 @@ class _InitialScreenState extends State<InitialScreen> {
           ),
         ),
       ),
-      body: AnimatedOpacity(
-        opacity: (hideScreen) ? 1 : 0,
-        duration: const Duration(milliseconds: 800),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: ListView(
-            children: const [
-              SizedBox(
-                height: 20,
-              ),
-              MyTask('Learn Dart', 1, 'assets/image/dart.jpg'),
-              MyTask('Learn Flutter', 2, 'assets/image/flutter.png'),
-              MyTask('Mobile course', 3, 'assets/image/Mobile-App.png'),
-              MyTask('Github course', 4, 'assets/image/github.png'),
-              MyTask('Start Design', 5, 'assets/image/web.jpg'),
-              MyTask('Test', 0, 'assets/image/test.jpg'),
-              SizedBox(height: 90),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: ListView(
+          children: const [
+            SizedBox(
+              height: 20,
+            ),
+            MyTask('Learn Dart', 1, 'assets/image/dart.jpg'),
+            MyTask('Learn Flutter', 2, 'assets/image/flutter.png'),
+            MyTask('Mobile course', 3, 'assets/image/Mobile-App.png'),
+            MyTask('Github course', 4, 'assets/image/github.png'),
+            MyTask('Start Design', 5, 'assets/image/web.jpg'),
+            MyTask('Test', 0, 'assets/image/test.jpg'),
+            SizedBox(height: 90),
+          ],
         ),
       ),
       bottomSheet: const SizedBox(
         height: 50,
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(28, 107, 109, 109),
-        onPressed: () {
-          setState(() {
-            islock = !islock;
-            hideScreen = !hideScreen;
-          });
-        },
-        child: Icon(
-          (islock) ? Icons.lock : Icons.lock_open_rounded,
-          color: (islock) ? Colors.red : Colors.green,
-          size: 35,
-          shadows: const [
-            BoxShadow(blurRadius: 10, color: Colors.black87),
-          ],
-        ),
-      ),
+          backgroundColor: Colors.blue,
+          shape: const CircleBorder(),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const FormScreen(),
+              ),
+            );
+          },
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          )),
     );
   }
 }
