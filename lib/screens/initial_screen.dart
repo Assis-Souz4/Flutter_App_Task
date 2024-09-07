@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_task_2024/components/my_task.dart';
+import 'package:flutter_app_task_2024/data/task_inherited.dart';
 import 'package:flutter_app_task_2024/screens/form_screen.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -28,18 +28,8 @@ class _InitialScreenState extends State<InitialScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
-          children: const [
-            SizedBox(
-              height: 20,
-            ),
-            MyTask('Learn Dart', 1, 'assets/image/dart.jpg'),
-            MyTask('Learn Flutter', 2, 'assets/image/flutter.png'),
-            MyTask('Mobile course', 3, 'assets/image/Mobile-App.png'),
-            MyTask('Github course', 4, 'assets/image/github.png'),
-            MyTask('Start Design', 5, 'assets/image/web.jpg'),
-            MyTask('Test', 0, 'assets/image/test.jpg'),
-            SizedBox(height: 90),
-          ],
+          padding: const EdgeInsets.only(bottom: 80),
+          children: TaskInherited.of(context)!.taskList,
         ),
       ),
       bottomSheet: const SizedBox(
