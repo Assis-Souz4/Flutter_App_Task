@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_task_2024/data/task_inherited.dart';
 
 class FormScreen extends StatefulWidget {
-  const FormScreen({super.key});
+  const FormScreen({super.key, required this.taskContext});
+
+  final BuildContext taskContext;
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -13,6 +16,25 @@ class _FormScreenState extends State<FormScreen> {
   TextEditingController imageController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  bool valueValidator(String value) {
+    if (value.isEmpty) {
+      return true;
+    }
+    return false;
+  }
+
+  bool difficultyValidator(String value) {
+    if (value.isEmpty) {
+      return true;
+    }
+    try {
+       final intValue = int.parse(value);
+      return intValue > 5 || intValue < 1;
+    } catch (e) {
+       return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -48,7 +70,7 @@ class _FormScreenState extends State<FormScreen> {
                             setState(() {});
                           },
                           validator: (String? value) {
-                            if (value!.isEmpty) {
+                            if (valueValidator(value!)) {
                               return 'Add task name';
                             }
                             return null;
@@ -71,9 +93,7 @@ class _FormScreenState extends State<FormScreen> {
                             setState(() {});
                           },
                           validator: (value) {
-                            if (value!.isEmpty ||
-                                int.parse(value) > 5 ||
-                                int.parse(value) < 1) {
+                            if (difficultyValidator(value!)) {
                               return 'Enter a value from 1 to 5';
                             }
                             return null;
@@ -95,7 +115,7 @@ class _FormScreenState extends State<FormScreen> {
                             setState(() {});
                           },
                           validator: (value) {
-                            if (value!.isEmpty) {
+                            if (valueValidator(value!)) {
                               return 'Enter an image url';
                             }
                             return null;
@@ -121,8 +141,8 @@ class _FormScreenState extends State<FormScreen> {
                           borderRadius: BorderRadius.circular(6),
                           child: Image.network(
                             imageController.text,
-                            errorBuilder: (BuildContext context, Object exception,
-                                StackTrace? stackTrace) {
+                            errorBuilder: (BuildContext context,
+                                Object exception, StackTrace? stackTrace) {
                               return Image.asset(
                                 'assets/image/no_photo.avif',
                                 fit: BoxFit.cover,
@@ -139,12 +159,13 @@ class _FormScreenState extends State<FormScreen> {
                                 borderRadius: BorderRadius.circular(6))),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            print(nameController.text);
-                            print(difficultyController.text);
-                            print(imageController.text);
+                            TaskInherited.of(widget.taskContext).newTask(
+                                nameController.text,
+                                int.parse(difficultyController.text),
+                                imageController.text);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Task sent successfully...'),
+                                content: Text('Creating a new task!'),
                               ),
                             );
                             Navigator.pop(context);

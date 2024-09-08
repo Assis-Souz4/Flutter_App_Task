@@ -17,10 +17,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const TaskInherited(
-        child: InitialScreen(),
+      home: TaskInherited(
+        child: const InitialScreen(),
       ),
-      // home: const InitialScreen(),
     );
   }
 }

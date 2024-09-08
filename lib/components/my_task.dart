@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_task_2024/components/star_nivel.dart';
 
+// ignore: must_be_immutable
 class MyTask extends StatefulWidget {
-  const MyTask(this.taskName, this.starNivel, this.imageTask, {super.key});
+  MyTask(this.taskName, this.starNivel, this.imageTask, {super.key});
 
   final String taskName;
   final int starNivel;
   final String imageTask;
 
+  int valueTaskNivel = 0;
   @override
   State<MyTask> createState() => _MyTaskState();
 }
 
 class _MyTaskState extends State<MyTask> {
-  int valueTaskNivel = 0;
+  
+
+  bool? assetOrNet() {
+    if (widget.imageTask.contains('http') ||
+        widget.imageTask.contains('HTTP')) {
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,14 +54,14 @@ class _MyTaskState extends State<MyTask> {
                             width: 200,
                             child: LinearProgressIndicator(
                               value: (widget.starNivel > 0)
-                                  ? (valueTaskNivel / widget.starNivel) / 10
+                                  ? (widget.valueTaskNivel / widget.starNivel) / 10
                                   : 1,
                               color: Colors.white,
                               backgroundColor: Colors.black12,
                             ),
                           ),
                           Text(
-                            'Nivel: $valueTaskNivel',
+                            'Nivel: ${widget.valueTaskNivel}',
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
@@ -82,7 +93,15 @@ class _MyTaskState extends State<MyTask> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(4),
-                          child: Image.asset(widget.imageTask,fit: BoxFit.cover,),
+                          child: assetOrNet()!
+                              ? Image.asset(
+                                  widget.imageTask,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.network(
+                                  widget.imageTask,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                       SizedBox(
@@ -109,7 +128,7 @@ class _MyTaskState extends State<MyTask> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            valueTaskNivel++;
+                            widget.valueTaskNivel++;
                           });
                         },
                         style: ElevatedButton.styleFrom(

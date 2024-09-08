@@ -29,7 +29,7 @@ class _InitialScreenState extends State<InitialScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           padding: const EdgeInsets.only(bottom: 80),
-          children: TaskInherited.of(context)!.taskList,
+          children: TaskInherited.of(context).taskList,
         ),
       ),
       bottomSheet: const SizedBox(
@@ -42,7 +42,7 @@ class _InitialScreenState extends State<InitialScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const FormScreen(),
+                builder: (contextNew) => FormScreen(taskContext: context,),
               ),
             );
           },
