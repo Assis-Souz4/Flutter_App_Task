@@ -16,6 +16,7 @@ class _FormScreenState extends State<FormScreen> {
   TextEditingController imageController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
   bool valueValidator(String value) {
     if (value.isEmpty) {
       return true;
@@ -28,10 +29,10 @@ class _FormScreenState extends State<FormScreen> {
       return true;
     }
     try {
-       final intValue = int.parse(value);
+      final intValue = int.parse(value);
       return intValue > 5 || intValue < 1;
     } catch (e) {
-       return false;
+      return false;
     }
   }
 
